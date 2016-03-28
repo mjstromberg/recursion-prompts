@@ -25,34 +25,44 @@ var sum = function(array) {
 // 3. Sum all numbers in an array containing nested arrays.
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(arr) {
-	if (arr.length === 0) {
-		return 0;
-	} else if (arr.length === 1) {
-		if (arr[0].isArray) {
+	if (Array.isArray(arr)) {
+		if (arr.length === 0) {
+			return 0;
+		} else if (arr.length === 1) {
 			return arraySum(arr[0]);
 		} else {
-			return arr[0];
+			return arraySum(arr[arr.length - 1]) + arraySum(arr.slice(0, -1));
 		}
 	} else {
-		if (arr[arr.length - 1].isArray) {
-			return sum(arr[arr.length -1]) + sum(arr.slice(0, -1));
-		} else {
-			return arr[arr.length - 1] + sum(arr.slice(0, -1));
-		}
+		return arr;
 	}
 };
 
 
 // 4. Check whether a number is even or not.
 var isEven = function(n) {
-
+	
 };
 
 
 // 5. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
 var range = function(x, y) {
-
+	var result = [];
+	var intRecurse = function(a, b) {
+		if (Math.abs(a - b) <= 1) {
+		  return result;
+	  } else {
+		  if (Math.ceil(a) < b) {
+			  return result.push(Math.ceil(a) + 1) + intRecurse(Math.ceil(a) + 1, b);
+		  } else {
+				return result.push(Math.floor(a) - 1) + intRecurse(Math.floor(a) -1, b);
+			}
+	  }
+	}
+	
+	intRecurse(x, y);
+	return result;
 };
 
 
