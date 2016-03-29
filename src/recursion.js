@@ -47,21 +47,21 @@ var isEven = function(n) {
 
 // 5. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
+
+// Ex: range(2, 5); // [3, 4]
 var range = function(x, y) {
 	var result = [];
-	var intRecurse = function(a, b) {
-		if (Math.abs(a - b) <= 1) {
-		  return result;
-	  } else {
-		  if (Math.ceil(a) < b) {
-			  return result.push(Math.ceil(a) + 1) + intRecurse(Math.ceil(a) + 1, b);
-		  } else {
-				return result.push(Math.floor(a) - 1) + intRecurse(Math.floor(a) -1, b);
-			}
-	  }
+	
+	if (Math.abs(x - y) <= 1) {
+		return result;
+	} else {
+		if (Math.ceil(x) < y) {
+			return result.concat(Math.ceil(x) + 1, range(Math.ceil(x) + 1, y));
+		} else {
+			return result.concat(Math.ceil(x) - 1, range(Math.ceil(x) - 1, y));
+		}
 	}
 	
-	intRecurse(x, y);
 	return result;
 };
 
@@ -229,7 +229,19 @@ var createArray = function(str){
 
 // 15. Reverse the order of an array
 var reverseArr = function (array) {
-
+	var result = [];
+	var reverseRecurse = function(arr) {
+		if (arr.length === 0) {
+			return result;
+		} else if (arr.length === 1) {
+			return result.push(arr[0]);
+		} else {
+			return result.push(arr[arr.length - 1]) + reverseRecurse(arr.slice(0, -1));
+		}
+	}
+	
+	reverseRecurse(array);
+	return result;
 };
 
 
@@ -237,7 +249,19 @@ var reverseArr = function (array) {
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
-
+var result = [];
+	var buildRecurse = function(val, len) {
+		if (len === 0) {
+			return result;
+		} else if (len === 1) {
+			return result.push(val);
+		} else {
+			return result.push(val) + buildRecurse(val, len - 1);
+		}
+	}
+	
+	buildRecurse(value, length);
+	return result;	
 };
 
 
@@ -245,7 +269,20 @@ var buildList = function(value, length) {
 // countOccurrence([2,7,4,4,1,4], 4) // 3
 // countOccurrence([2,'banana',4,4,1,'banana'], 'banana') // 2
 var countOccurrence = function(array, value) {
-
+	var count = 0;
+	var countRecurse = function(arr, val) {
+		if (arr.length === 0) {
+			return count;
+		} else if (arr.length === 1) {
+			return count = arr[0] === val ? count++ : count;
+		} else {
+			count = arr[arr.length - 1] === val ? count++ : count;
+			return countRecurse(arr.slice(0, -1), val);
+		}
+	}
+	
+	countRecurse(array, value);
+	return count;
 };
 
 
