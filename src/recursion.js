@@ -108,21 +108,73 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-
+	if (y === 0)  {
+		return NaN;
+	} else if (x === 0) {
+		return 0;
+	} else {
+		if (x > 0) {
+			if (y > 0) {
+				if (x < y) {
+					return x;
+				} else {
+					return modulo(x - y, y);
+				}
+			} else {
+				if (x < -y) {
+					return -x;
+				} else {
+					return modulo(x + y, y);
+				}
+			}
+		} else {
+			if (y > 0) {
+				if (-x < y) {
+					return x;
+				} else {
+					return modulo(x + y, y);
+				}
+			} else {
+				if (-x < -y) {
+					return x;
+				} else {
+					return modulo(x - y, y);
+				}
+			}
+		}
+	}
 };
 
 
 // 10. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 var multiply = function(x, y) {
-
+	if (x === 0 || y === 0) {
+		return 0;
+	} else if (y === 1 || y === -1) {
+		return y === 1 ? x : -x;
+	} else {
+		if (x > 0) {
+			if (y > 0) {
+				return x + multiply(x, y - 1);
+			} else {
+				return -x + multiply(x, y + 1);
+			}
+		} else {
+			if (y > 0) {
+				return x + multiply(x, y - 1);
+			} else {
+				return -x + multiply(x, y + 1);
+			}
+		}
+	}
 };
 
 
 // 11. Write a function that divides two numbers without using the / operator  or
 // JavaScript's Math object.
 var divide = function(x, y) {
-
+	
 };
 
 
@@ -132,7 +184,7 @@ var divide = function(x, y) {
 // http://www.cse.wustl.edu/~kjg/cse131/Notes/Recursion/recursion.html
 // https://www.khanacademy.org/computing/computer-science/cryptography/modarithmetic/a/the-euclidean-algorithm
 var gcd = function(x, y) {
-
+	
 };
 
 
@@ -142,7 +194,17 @@ var gcd = function(x, y) {
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
-
+	if (str1.length !== str2.length) {
+		return false;
+	} else if (str1.length === 0) {
+		return true;
+	} else {
+		if (str1.charAt(str1.length - 1) === str2.charAt(str2.length - 1)) {
+			return compareStr(str1.slice(0, -1), str2.slice(0, -1));
+		} else {
+			return false;
+		}
+	}
 };
 
 
