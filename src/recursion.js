@@ -72,13 +72,27 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
-
+	if (exp === 0) {
+		return 1;
+	} else if (exp === 1) {
+		return base;
+	} else if (exp < 0) {
+		return 1 / base * exponent(base, exp + 1);
+	} else {
+		return base * exponent(base, exp - 1);
+	}
 };
 
 
 // 7. Write a function that accepts a string a reverses it.
 var reverse = function(string) {
-
+	if (string.length === 0) {
+		return '';
+	} else if (string.length === 1) {
+		return string;
+	} else {
+		return string.charAt(string.length - 1) + reverse(string.slice(0, -1));
+	}
 };
 
 
