@@ -211,7 +211,19 @@ var compareStr = function(str1, str2) {
 // 14. Write a function that accepts a string and creates an array where each letter
 // occupies an index of the array.
 var createArray = function(str){
-
+	var result = [];
+	var recurseString = function(string) {
+		if (string.length === 0) {
+			return result;
+		} else if (string.length === 1) {
+			return result.unshift(string);
+		} else {
+			return result.unshift(string[string.length - 1]) + recurseString(string.slice(0, -1));
+		}
+	}
+	
+	recurseString(str);
+	return result;
 };
 
 
