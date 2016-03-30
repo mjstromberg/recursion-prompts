@@ -12,13 +12,9 @@ var factorial = function(n) {
 // 2. Compute the sum of an array of integers.
 // Example:  sum([1, 2, 3, 4, 5, 6]);  // 21
 var sum = function(array) {
-	if (array.length === 0) {
-		return 0;
-	} else if (array.length === 1) {
-		return array[0];
-	} else {
-		return array[array.length - 1] + sum(array.slice(0, -1));
-	}
+	if (array.length === 0) return 0;
+	if (array.length === 1) return array[0];
+	return array[array.length - 1] + sum(array.slice(0, -1));
 };
 
 
@@ -26,16 +22,11 @@ var sum = function(array) {
 // Example: arraySum([1,[2,3],[[4]],5]); // 15
 var arraySum = function(arr) {
 	if (Array.isArray(arr)) {
-		if (arr.length === 0) {
-			return 0;
-		} else if (arr.length === 1) {
-			return arraySum(arr[0]);
-		} else {
-			return arraySum(arr[arr.length - 1]) + arraySum(arr.slice(0, -1));
-		}
-	} else {
-		return arr;
+		if (arr.length === 0) return 0;
+		if (arr.length === 1) return arraySum(arr[0]);
+		return arraySum(arr[arr.length - 1]) + arraySum(arr.slice(0, -1));
 	}
+	return arr;
 };
 
 
@@ -47,22 +38,12 @@ var isEven = function(n) {
 
 // 5. Get the integers in range (x, y).
 // Example:  range(2, 9);  // [3, 4, 5, 6, 7, 8]
-
-// Ex: range(2, 5); // [3, 4]
 var range = function(x, y) {
 	var result = [];
 	
-	if (Math.abs(x - y) <= 1) {
-		return result;
-	} else {
-		if (Math.ceil(x) < y) {
-			return result.concat(Math.ceil(x) + 1, range(Math.ceil(x) + 1, y));
-		} else {
-			return result.concat(Math.ceil(x) - 1, range(Math.ceil(x) - 1, y));
-		}
-	}
-	
-	return result;
+	if (Math.abs(x - y) <= 1) return result;
+	if (Math.ceil(x) < y) return result.concat(Math.ceil(x) + 1, range(Math.ceil(x) + 1, y));
+	else return result.concat(Math.ceil(x) - 1, range(Math.ceil(x) - 1, y));
 };
 
 
@@ -72,27 +53,18 @@ var range = function(x, y) {
 // Example:  exponent(4,3);  // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
-	if (exp === 0) {
-		return 1;
-	} else if (exp === 1) {
-		return base;
-	} else if (exp < 0) {
-		return 1 / base * exponent(base, exp + 1);
-	} else {
-		return base * exponent(base, exp - 1);
-	}
+	if (exp === 0) return 1;
+  if (exp === 1) return base;
+	if (exp < 0)   return Number((1 / base * exponent(base, exp + 1)).toFixed(5));
+	return base * exponent(base, exp - 1);
 };
 
 
 // 7. Write a function that accepts a string a reverses it.
 var reverse = function(string) {
-	if (string.length === 0) {
-		return '';
-	} else if (string.length === 1) {
-		return string;
-	} else {
-		return string.charAt(string.length - 1) + reverse(string.slice(0, -1));
-	}
+	if (string.length === 0) return '';
+	if (string.length === 1) return string;
+  return string.charAt(string.length - 1) + reverse(string.slice(0, -1));
 };
 
 
@@ -108,38 +80,24 @@ var palindrome = function(string) {
 // modulo(17,5) // 2
 // modulo(22,6) // 4
 var modulo = function(x, y) {
-	if (y === 0)  {
-		return NaN;
-	} else if (x === 0) {
-		return 0;
-	} else {
+	if (y === 0) return NaN;
+	if (x === 0) return 0;
+	else {
 		if (x > 0) {
 			if (y > 0) {
-				if (x < y) {
-					return x;
-				} else {
-					return modulo(x - y, y);
-				}
+				if (x < y) return x;
+				return modulo(x - y, y);
 			} else {
-				if (x < -y) {
-					return -x;
-				} else {
-					return modulo(x + y, y);
-				}
+				if (x < -y) return -x;
+				return modulo(x + y, y);
 			}
 		} else {
 			if (y > 0) {
-				if (-x < y) {
-					return x;
-				} else {
-					return modulo(x + y, y);
-				}
+				if (-x < y) return x;
+				return modulo(x + y, y);
 			} else {
-				if (-x < -y) {
-					return x;
-				} else {
-					return modulo(x - y, y);
-				}
+				if (-x < -y) return x;
+				return modulo(x - y, y);
 			}
 		}
 	}
@@ -149,23 +107,15 @@ var modulo = function(x, y) {
 // 10. Write a function that multiplies two numbers without using the * operator  or
 // JavaScript's Math object.
 var multiply = function(x, y) {
-	if (x === 0 || y === 0) {
-		return 0;
-	} else if (y === 1 || y === -1) {
-		return y === 1 ? x : -x;
-	} else {
+	if (x === 0 || y === 0) return 0;
+	if (y === 1 || y === -1) return y === 1 ? x : -x;
+	else {
 		if (x > 0) {
-			if (y > 0) {
-				return x + multiply(x, y - 1);
-			} else {
-				return -x + multiply(x, y + 1);
-			}
+			if (y > 0) return x + multiply(x, y - 1);
+			return -x + multiply(x, y + 1);
 		} else {
-			if (y > 0) {
-				return x + multiply(x, y - 1);
-			} else {
-				return -x + multiply(x, y + 1);
-			}
+			if (y > 0) return x + multiply(x, y - 1);
+			return -x + multiply(x, y + 1);
 		}
 	}
 };
@@ -194,11 +144,9 @@ var gcd = function(x, y) {
 // compareStr('', '') // true
 // compareStr('tomato', 'tomato') // true
 var compareStr = function(str1, str2) {
-	if (str1.length !== str2.length) {
-		return false;
-	} else if (str1.length === 0) {
-		return true;
-	} else {
+	if (str1.length !== str2.length) return false;
+	if (str1.length === 0) return true;
+	else {
 		if (str1.charAt(str1.length - 1) === str2.charAt(str2.length - 1)) {
 			return compareStr(str1.slice(0, -1), str2.slice(0, -1));
 		} else {
@@ -212,36 +160,18 @@ var compareStr = function(str1, str2) {
 // occupies an index of the array.
 var createArray = function(str){
 	var result = [];
-	var recurseString = function(string) {
-		if (string.length === 0) {
-			return result;
-		} else if (string.length === 1) {
-			return result.unshift(string);
-		} else {
-			return result.unshift(string[string.length - 1]) + recurseString(string.slice(0, -1));
-		}
-	}
 	
-	recurseString(str);
-	return result;
+	if (str.length === 0) return result;
+	return result.concat(str.charAt(0), createArray(str.slice(1)));
 };
 
 
 // 15. Reverse the order of an array
 var reverseArr = function (array) {
 	var result = [];
-	var reverseRecurse = function(arr) {
-		if (arr.length === 0) {
-			return result;
-		} else if (arr.length === 1) {
-			return result.push(arr[0]);
-		} else {
-			return result.push(arr[arr.length - 1]) + reverseRecurse(arr.slice(0, -1));
-		}
-	}
 	
-	reverseRecurse(array);
-	return result;
+	if (array.length === 0) return result;
+	return result.concat(array[array.length - 1], reverseArr(array.slice(0, -1)));	
 };
 
 
@@ -249,19 +179,10 @@ var reverseArr = function (array) {
 // buildList(0,5) // [0,0,0,0,0]
 // buildList(7,3) // [7,7,7]
 var buildList = function(value, length) {
-var result = [];
-	var buildRecurse = function(val, len) {
-		if (len === 0) {
-			return result;
-		} else if (len === 1) {
-			return result.push(val);
-		} else {
-			return result.push(val) + buildRecurse(val, len - 1);
-		}
-	}
-	
-	buildRecurse(value, length);
-	return result;	
+	var result = [];
+
+	if (length === 0) return result;
+	return result.concat([value], buildList(value, length - 1));
 };
 
 
